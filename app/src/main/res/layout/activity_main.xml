@@ -15,4 +15,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.viewstask.CustomViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cvg_childDistance="10dp"
+        app:cvg_childHeight="10dp">
+
+    </com.example.viewstask.CustomViewGroup>
+
+    <com.google.android.material.chip.Chip
+        style="@style/Widget.MaterialComponents.Chip.Entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello_world"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="184dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
