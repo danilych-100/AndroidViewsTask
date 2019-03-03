@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.chip.Chip;
@@ -29,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
             chip.setCheckable(false);
             chip.setText(getString(R.string.chipName, i));
             chip.setCloseIconVisible(true);
+
+            chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Handle the click on the close icon.
+                    ((ViewGroup)view.getParent()).removeView(view);
+                }
+            });
+
             customViewGroup.addView(chip);
         }
     }

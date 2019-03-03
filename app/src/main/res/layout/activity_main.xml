@@ -16,28 +16,22 @@
             android:id="@+id/firstCustomGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             app:cvg_rowDistance="15dp"
             app:cvg_childDistance="25dp"
-            app:cvg_childHeight="30dp">
-        </com.example.viewstask.CustomViewGroup>
+            app:cvg_childHeight="30dp"/>
+        
+        <View style="@style/Divider"/>
 
         <com.example.viewstask.CustomViewGroup
             android:id="@+id/secondCustomGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             app:cvg_rowDistance="20dp"
             app:cvg_childDistance="40dp"
-            app:cvg_childHeight="30dp">
+            app:cvg_childHeight="30dp"/>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip22"
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="false"
-                android:text="hello_world"/>
-        </com.example.viewstask.CustomViewGroup>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
