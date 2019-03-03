@@ -4,6 +4,7 @@
         <attr name="cvg_childDistance" format="dimension" />
         <attr name="cvg_childHeight" format="dimension" />
         <attr name="cvg_rowDistance" format="dimension" />
+        <attr name="cvg_gravity"/>
     </declare-styleable>
 
 </resources>

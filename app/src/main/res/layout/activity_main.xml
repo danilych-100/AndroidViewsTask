@@ -19,8 +19,9 @@
             android:layout_marginBottom="10dp"
             app:cvg_rowDistance="15dp"
             app:cvg_childDistance="25dp"
-            app:cvg_childHeight="30dp"/>
-        
+            app:cvg_childHeight="30dp"
+            app:cvg_gravity="right"/>
+
         <View style="@style/Divider"/>
 
         <com.example.viewstask.CustomViewGroup

@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 
 public class CustomViewGroup extends ViewGroup {
 
+    private final String GRAVITY_LEFT = "left";
+    private final String GRAVITY_RIGHT = "right";
+
     private final int DEFAULT_DISTANCE = 20;
     private final int DEFAULT_HEIGHT = 30;
     private final int ROWS_DISTANCE = 20;
 
-    private int distanceBetweenChilds;
-    private int childsHeight;
+    private int distanceBetweenChildren;
+    private int childrenHeight;
     private int rowDistance;
+    private String gravity;
 
     public CustomViewGroup(Context context) {
         super(context);
@@ -41,9 +45,14 @@ public class CustomViewGroup extends ViewGroup {
 
     private void fillAttributes(Context context, AttributeSet attrs){
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomViewGroup);
-        this.distanceBetweenChilds = typedArray.getDimensionPixelSize(R.styleable.CustomViewGroup_cvg_childDistance, DEFAULT_DISTANCE);
-        this.childsHeight = typedArray.getDimensionPixelSize(R.styleable.CustomViewGroup_cvg_childHeight, DEFAULT_HEIGHT);
+        this.distanceBetweenChildren = typedArray.getDimensionPixelSize(R.styleable.CustomViewGroup_cvg_childDistance, DEFAULT_DISTANCE);
+        this.childrenHeight = typedArray.getDimensionPixelSize(R.styleable.CustomViewGroup_cvg_childHeight, DEFAULT_HEIGHT);
         this.rowDistance = typedArray.getDimensionPixelSize(R.styleable.CustomViewGroup_cvg_rowDistance, ROWS_DISTANCE);
+        this.gravity = typedArray.getString(R.styleable.CustomViewGroup_cvg_gravity);
+        if(this.gravity == null){
+            this.gravity = GRAVITY_LEFT;
+        }
+
         typedArray.recycle();
     }
 
@@ -58,9 +67,9 @@ public class CustomViewGroup extends ViewGroup {
                 continue;
             }
 
-            measureChild(child, widthMeasureSpec, MeasureSpec.makeMeasureSpec(this.childsHeight, MeasureSpec.EXACTLY));
+            measureChild(child, widthMeasureSpec, MeasureSpec.makeMeasureSpec(this.childrenHeight, MeasureSpec.EXACTLY));
 
-            int childMeasuredWidth = child.getMeasuredWidth() + this.distanceBetweenChilds;
+            int childMeasuredWidth = child.getMeasuredWidth() + this.distanceBetweenChildren;
             int childMeasuredHeight = child.getMeasuredHeight();
 
             if(totalHeight == 0){
@@ -83,15 +92,13 @@ public class CustomViewGroup extends ViewGroup {
         final int childLeft = this.getPaddingLeft();
         final int childTop = this.getPaddingTop();
         final int childRight = this.getMeasuredWidth() - this.getPaddingRight();
-        //final int childBottom = this.getMeasuredHeight() - this.getPaddingBottom();
-        /*final int childWidth = childRight - childLeft;
-        final int childHeight = childBottom - childTop;*/
 
         int curWidth;
         int curHeight;
         int maxHeight = 0;
         int curLeft = childLeft;
         int curTop = childTop;
+        int curRight = childRight;
 
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
@@ -99,34 +106,52 @@ public class CustomViewGroup extends ViewGroup {
             if (child.getVisibility() == GONE)
                 continue;
 
-            /*child.measure(MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.AT_MOST),
-                    MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.AT_MOST));*/
             curWidth = child.getMeasuredWidth();
             curHeight = child.getMeasuredHeight();
 
-            if (curLeft + curWidth >= childRight) {
-                curLeft = childLeft;
-                curTop += maxHeight;
-                maxHeight = 0;
+            if(this.gravity == null || this.gravity.equals(GRAVITY_LEFT)){
+                if (curLeft + curWidth >= childRight) {
+                    curLeft = childLeft;
+                    curTop += maxHeight;
+                    maxHeight = 0;
+                }
+
+                child.layout(curLeft, curTop, curLeft + curWidth, curTop + curHeight);
+
+                if (maxHeight < curHeight)
+                    maxHeight = curHeight + this.rowDistance;
+                curLeft += curWidth + this.distanceBetweenChildren;
+            } else {
+                if (curRight - curWidth < childLeft) {
+                    curRight = childRight;
+                    curTop += maxHeight;
+                    maxHeight = 0;
+                }
+
+                child.layout(curRight - curWidth, curTop, curRight, curTop + curHeight);
+
+                if (maxHeight < curHeight)
+                    maxHeight = curHeight + this.rowDistance;
+                curRight -= curWidth + this.distanceBetweenChildren;
             }
 
-            child.layout(curLeft, curTop, curLeft + curWidth, curTop + curHeight);
 
-            if (maxHeight < curHeight)
-                maxHeight = curHeight + this.rowDistance;
-            curLeft += curWidth + this.distanceBetweenChilds;
         }
     }
 
-    public void setDistanceBetweenChilds(int distanceBetweenChilds) {
-        this.distanceBetweenChilds = distanceBetweenChilds;
+    public void setDistanceBetweenChildren(int distanceBetweenChildren) {
+        this.distanceBetweenChildren = distanceBetweenChildren;
     }
 
-    public void setChildsHeight(int childsHeight) {
-        this.childsHeight = childsHeight;
+    public void setChildrenHeight(int childrenHeight) {
+        this.childrenHeight = childrenHeight;
     }
 
     public void setRowDistance(int rowDistance) {
         this.rowDistance = rowDistance;
+    }
+
+    public void setGravity(String gravity) {
+        this.gravity = gravity;
     }
 }
