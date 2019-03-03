@@ -6,30 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.example.viewstask.CustomViewGroup
+    <LinearLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cvg_childDistance="10dp"
-        app:cvg_childHeight="10dp">
+        android:orientation="vertical">
 
-    </com.example.viewstask.CustomViewGroup>
+        <com.example.viewstask.CustomViewGroup
+            android:id="@+id/firstCustomGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cvg_rowDistance="15dp"
+            app:cvg_childDistance="25dp"
+            app:cvg_childHeight="30dp">
+        </com.example.viewstask.CustomViewGroup>
 
-    <com.google.android.material.chip.Chip
-        style="@style/Widget.MaterialComponents.Chip.Entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hello_world"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="184dp" />
+        <com.example.viewstask.CustomViewGroup
+            android:id="@+id/secondCustomGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:cvg_rowDistance="20dp"
+            app:cvg_childDistance="40dp"
+            app:cvg_childHeight="30dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip22"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="false"
+                android:text="hello_world"/>
+        </com.example.viewstask.CustomViewGroup>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

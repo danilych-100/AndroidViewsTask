@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ViewsTask</string>
+    <string name="chipName">Чипса %d</string>
 </resources>

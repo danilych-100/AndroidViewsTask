@@ -3,5 +3,7 @@
     <declare-styleable name="CustomViewGroup">
         <attr name="cvg_childDistance" format="dimension" />
         <attr name="cvg_childHeight" format="dimension" />
+        <attr name="cvg_rowDistance" format="dimension" />
     </declare-styleable>
+
 </resources>
